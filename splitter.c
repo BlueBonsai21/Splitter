@@ -1,4 +1,3 @@
-#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> // for future dynamic allocation shit
@@ -75,20 +74,28 @@ int main(void) {
     printf("Input a string. It will be separated in sub-strings based off\
 the graphical signs in your sentence(s): '.', '!', '?'\n*Note: some characters are not permitted.\n");
 
+    // reading input; adding a null-terminator
     while ((c = getc(stdin)) != EOF && counter < MAX_READ-1) {
+        printf("%c", (char)c);
         input[counter] = (char)c;
         counter++;
     }
     input[counter] = '\0';
+    printf("%s", input);
     
-    for (unsigned int j = 0; j < counter; j++) {
+    // checking for a final symbol, to close the sub-string.
+    for (unsigned int j = 0; j < SEPARATORS_COUNT; j++) {
         if (separators[j] == input[counter-1]) {
             sepended = 1;
             break;
         }
     }
-    if (sepended != 1 && counter > 0) { // if there is in fact
-        input[counter-1] = '.';
+
+    // if there is no final symbol and there are more than 0 elements:
+    if (sepended != 1 && counter > 0) {
+        input[counter] = '.';
+        input[counter+1] = '\0'; // shifted all the shit to the right
+        counter++;
         sepended = 1;
     }
 
