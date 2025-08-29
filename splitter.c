@@ -1,3 +1,14 @@
+/*
+Trying to build a string splitter that takes 1 input and returns sub-strings based off symbols used.
+In main() we ask for the input, then send to PurifyString(), that removes any char before 0x20 and
+after 0x7E, replacing them with a blank space.
+After that, the purified string is sent over to SplitString(), that checks where '.', '!' and '?' are
+placed in the sentence, and splits the original string in such a way to create a string from the
+last split point to the current separator symbol.
+I don't know why it doesn't work.
+*/
+
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> // for future dynamic allocation shit
