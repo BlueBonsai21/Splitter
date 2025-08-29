@@ -3,7 +3,7 @@
 typedef struct {
     int count; // Amount of substrings returned
     char **substrings; // Substrings returned
-} splitReturn;
+} splitResult;
 
 /* Making sure that no unwanted characters are passed on. */
 void PurifyString(char *str);
