@@ -112,7 +112,7 @@ the graphical signs in your sentence(s): '.', '!', '?'\n*Note: some characters a
     splitResult result = SplitString(input);
     if (result.count > 0) {
         for (unsigned int i = 0; i < result.count; i++) {
-            printf("String #%u: %s\n", i+1, result.substrings[i]);
+            printf("String #%u (%i chars): %s\n", i+1, strlen(result.substrings[i]), result.substrings[i]);
         }
     } else {
         printf("Couldn't find any sub-string.");
