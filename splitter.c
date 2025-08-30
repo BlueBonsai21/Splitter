@@ -1,11 +1,14 @@
 /*
-Trying to build a string splitter that takes 1 input and returns sub-strings based off symbols used.
-In main() we ask for the input, then send to PurifyString(), that removes any char before 0x20 and
-after 0x7E, replacing them with a blank space.
-After that, the purified string is sent over to SplitString(), that checks where '.', '!' and '?' are
-placed in the sentence, and splits the original string in such a way to create a string from the
-last split point to the current separator symbol.
-I don't know why it doesn't work.
+Remains to fix the empty sub-string that's always generated and return.
+Also, must leave symbols at the end of sub-strings. Will take care of that.
+Also remove the space before the actual text in the sub-string, that's useless.
+
+How does this work?
+The user inputs a string. That is taken, pre-processed to remove any unwanted
+character (purified) and then split in sub-strings, in such way to create as many
+sub-strings as the separator synmbols in the sentence. 
+E.g. "Hello, World! How are you? Fine, thanks." -> this will generate 3 sub-strings:
+"Hello, World!", " How are you?", " Fine, thanks."
 */
 
 
@@ -85,13 +88,8 @@ int main(void) {
     printf("Input a string. It will be separated in sub-strings based off\
 the graphical signs in your sentence(s): '.', '!', '?'\n*Note: some characters are not permitted.\n");
 
-    // reading input; adding a null-terminator
-    while ((c = getc(stdin)) != EOF && counter < MAX_READ-1) {
-        printf("%c", (char)c);
-        input[counter] = (char)c;
-        counter++;
-    }
-    input[counter] = '\0';
+    fgets(input, MAX_READ, stdin);
+    counter = strlen(input);
     printf("%s", input);
     
     // checking for a final symbol, to close the sub-string.
@@ -114,7 +112,7 @@ the graphical signs in your sentence(s): '.', '!', '?'\n*Note: some characters a
     splitResult result = SplitString(input);
     if (result.count > 0) {
         for (unsigned int i = 0; i < result.count; i++) {
-            printf("String #%u: %s\n", i, result.substrings[i]);
+            printf("String #%u: %s\n", i+1, result.substrings[i]);
         }
     } else {
         printf("Couldn't find any sub-string.");
